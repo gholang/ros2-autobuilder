@@ -1,0 +1,104 @@
+#!/bin/bash
+# Called with $1 as the build directory
+#             $2 as the path to yocto-docs
+#             $3 as the path to bitbake
+builddir=$1
+ypdocs=$2/documentation/
+bbdocs=$3/doc/
+docs_buildtools=/srv/autobuilder/autobuilder.yoctoproject.org/pub/buildtools/x86_64-buildtools-docs-nativesdk-standalone-3.2+snapshot-20201105.sh
+outputdir=$builddir/output
+
+
+cd $builddir
+mkdir buildtools
+$docs_buildtools -y -d $builddir/buildtools
+. $builddir/buildtools/environment-setup*
+
+#wget https://downloads.yoctoproject.org/mirror/docbook-mirror/docbook-archives-20201105.tar.xz
+docbookarchive=/srv/autobuilder/autobuilder.yoctoproject.org/pub/docbook-mirror/docbook-archives-20201105.tar.xz
+mkdir $outputdir
+cd $outputdir
+tar -xJf $docbookarchive
+
+cd $bbdocs
+git checkout master
+make clean
+make publish
+mkdir $outputdir/bitbake
+cp -r ./_build/final/* $outputdir/bitbake
+
+git checkout master-next
+make clean
+make publish
+mkdir $outputdir/bitbake/next
+cp -r ./_build/final/* $outputdir/bitbake/next
+
+# stable branches
+for branch in 1.46 1.48 1.50; do
+    git checkout $branch
+    make clean
+    make publish
+    mkdir $outputdir/bitbake/$branch
+    cp -r ./_build/final/* $outputdir/bitbake/$branch
+done
+
+# only sync bitbake folder for now. We need bitbake to be published first
+# since the bitbake intersphinx index will be downloaded to build yocto-docs
+cd $outputdir
+rsync -irlp --checksum --ignore-times --delete bitbake docs@docs.yoctoproject.org:docs/
+
+cd $ypdocs
+git checkout master
+make clean
+make publish
+cp -r ./_build/final/* $outputdir
+
+cd $ypdocs
+git checkout transition
+make clean
+make publish
+cp -r ./_build/final/* $outputdir/
+
+cd $ypdocs
+git checkout master-next
+make clean
+make publish
+mkdir $outputdir/next
+cp -r ./_build/final/* $outputdir/next
+
+# stable branches
+for branch in dunfell gatesgarth hardknott; do
+    cd $ypdocs
+    git checkout $branch
+    make clean
+    make publish
+    mkdir $outputdir/$branch
+    cp -r ./_build/final/* $outputdir/$branch
+done
+
+# Yocto Project releases/tags
+v_sphinx='yocto-3.1.5' #This and newer versions have Sphinx docs.
+cd $ypdocs
+for tag in $(git tag --list 'yocto-*'); do
+    first=$(printf '%s\n%s' $tag $v_sphinx | sort --version-sort | head -n1)
+    if [ "$first" = "$v_sphinx" ]; then
+        cd $ypdocs
+        git checkout $tag
+        make clean
+        make publish
+        version=$(echo $tag | cut -c7-)
+        mkdir $outputdir/$version
+        cp -r ./_build/final/* $outputdir/$version
+    fi
+done
+
+# get current release (e.g. most recent tag), and add a 'current' link
+tag=$(git tag --list 'yocto-*' | sort --version-sort | tail -1 | cut -c7-)
+ln -s $tag $outputdir/current
+
+# Update switchers.js with the copy from master ypdocs
+cd $outputdir
+find . -name switchers.js -not -path ./_static/switchers.js -exec cp ./_static/switchers.js {} \;
+
+cd $outputdir
+rsync -irlp --checksum --ignore-times --delete . docs@docs.yoctoproject.org:docs/
