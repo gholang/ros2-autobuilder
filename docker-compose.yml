@@ -35,6 +35,6 @@ services:
       - BUILDMASTER_PORT=9989
       - WORKERNAME=ubuntu2004-ty-1
       - WORKERPASS=pass
-        #    links:
-        # - buildbot
+    links:
+     - buildbot
              
