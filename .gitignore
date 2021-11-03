@@ -7,3 +7,4 @@ git
 *.log
 *.cfg.sample
 buildbot.tac
+gitpoller-work
