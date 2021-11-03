@@ -1,5 +1,5 @@
 {
-    "BASE_HOMEDIR" : "buildbot",
+    "BASE_HOMEDIR" : "/buildbot",
     "BASE_SHAREDDIR" : "/srv/autobuilder/autobuilder.yoctoproject.org",
     "BASE_PUBLISHDIR" : "/srv/autobuilder/downloads.yoctoproject.org"
 }
