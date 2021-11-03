@@ -15,10 +15,10 @@ log:
 docker: master worker
 
 master:
-	docker build -t yezune/buildbot-master master -f Dockerfile.master
+	docker build -t yezune/buildbot-master master -f master/Dockerfile
 
 worker:
-	docker build -t yezune/buildbot-worker worker -f Dockerfile.worker
+	docker build -t yezune/buildbot-worker worker -f worker/Dockerfile
 
 clean:
 	docker image rm -f yezune/buildbot-master
