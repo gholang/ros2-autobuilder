@@ -1,11 +1,11 @@
 {
-    "BASE_HOMEDIR" : "/buildbot",
-    "BASE_SHAREDDIR" :  "/srv/autobuilder/autobuilder.yoctoproject.org",
+    "BASE_HOMEDIR" : "/home/pokybuild3",
+    "BASE_SHAREDDIR" : "/srv/autobuilder/autobuilder.yoctoproject.org",
     "BASE_PUBLISHDIR" : "/srv/autobuilder/downloads.yoctoproject.org",
 
     "BUILD_HISTORY_DIR" : "buildhistory",
     "BUILD_HISTORY_REPO" : "ssh://git@push.yoctoproject.org/poky-buildhistory",
-    "BUILD_HISTORY_DIRECTPUSH" : ["poky:morty", "poky:pyro", "poky:rocko", "poky:sumo", "poky:thud", "poky:warrior", "poky:zeus", "poky:dunfell", "poky:gatesgarth", "poky:hardknott", "poky:honister", "poky:master"],
+    "BUILD_HISTORY_DIRECTPUSH" : ["poky:morty", "poky:pyro", "poky:rocko", "poky:sumo", "poky:thud", "poky:warrior", "poky:zeus", "poky:dunfell", "poky:gatesgarth", "poky:hardknott", "poky:master"],
     "BUILD_HISTORY_FORKPUSH" : {"poky-contrib:ross/mut" : "poky:master", "poky:master-next" : "poky:master"},
 
     "BUILDTOOLS_URL_TEMPLOCAL" : "/srv/autobuilder/autobuilder.yoctoproject.org/pub/non-release/20210214-8/buildtools/x86_64-buildtools-extended-nativesdk-standalone-3.2+snapshot-7d38cc8e749aedb8435ee71847e04b353cca541d.sh",
@@ -58,8 +58,8 @@
             "SDK_INCLUDE_TOOLCHAIN = '1'",
             "SDK_LOCAL_CONF_BLACKLIST:append = 'BB_HASHSERVE'",
             "BB_DISKMON_DIRS = 'STOPTASKS,${TMPDIR},1G,100K STOPTASKS,${DL_DIR},1G STOPTASKS,${SSTATE_DIR},1G STOPTASKS,/tmp,100M,100K ABORT,${TMPDIR},100M,1K ABORT,${DL_DIR},100M ABORT,${SSTATE_DIR},100M ABORT,/tmp,10M,1K'",
-            "BB_HASHSERVE = 'typhoon.yocto.io:8686'",
-            "RUNQEMU_TMPFS_DIR = '/buildbot/tmp'",
+            "BB_HASHSERVE = 'localhost:8686'",
+            "RUNQEMU_TMPFS_DIR = '/home/pokybuild3/tmp'",
             "BB_HEARTBEAT_EVENT = '60'",
             "BB_LOG_HOST_STAT_ON_INTERVAL = '1'",
             "BB_LOG_HOST_STAT_CMDS_INTERVAL = 'oe-time-dd-test.sh -c 100 -t 15'",
@@ -813,34 +813,10 @@
         "oe-selftest-ubuntu" : {
             "TEMPLATE" : "selftest"
         },
-        "oe-selftest-debian" : {
-            "TEMPLATE" : "selftest"
-        },
-        "oe-selftest-fedora" : {
-            "TEMPLATE" : "selftest"
-        },
-        "oe-selftest-opensuse" : {
-            "TEMPLATE" : "selftest"
-        },
-        "oe-selftest-centos" : {
-            "TEMPLATE" : "selftest"
-        },
         "reproducible" : {
             "TEMPLATE" : "reproducible"
         },
         "reproducible-ubuntu" : {
-            "TEMPLATE" : "reproducible"
-        },
-        "reproducible-debian" : {
-            "TEMPLATE" : "reproducible"
-        },
-        "reproducible-fedora" : {
-            "TEMPLATE" : "reproducible"
-        },
-        "reproducible-opensuse" : {
-            "TEMPLATE" : "reproducible"
-        },
-        "reproducible-centos" : {
             "TEMPLATE" : "reproducible"
         },
         "check-layer" : {
@@ -1068,18 +1044,7 @@
             ]
 
         },
-        "eclipse-plugin-oxygen" : {
-            "NEEDREPOS" : ["eclipse-poky-oxygen"],
-            "WRITECONFIG" : false,
-            "SENDERRORS" : false,
-            "EXTRAPLAINCMDS" : [
-                "cd scripts; ./setup.sh; ECLIPSE_HOME=`pwd`/eclipse/ ./build.sh oxygen-master master development"
-            ]
-        },
-        "buildperf-ubuntu1604" : {
-            "TEMPLATE" : "buildperf"
-        },
-        "buildperf-centos7" : {
+        "buildperf-ubuntu2004" : {
             "TEMPLATE" : "buildperf"
         },
         "auh" : {
@@ -1196,11 +1161,7 @@
         }
     },
     "buildtools" : {
-        "debian8*" : "${BUILDTOOLS_URL}",
-        "debian9*" : "${BUILDTOOLS_URL}",
-        "centos7*" : "${BUILDTOOLS_URL}",
-        "ubuntu1604*" : "${BUILDTOOLS_URL}",
-        "perf-centos7*" : "${BUILDTOOLS_URL}",
-        "perf-ubuntu1604*" : "${BUILDTOOLS_URL}"
+        "ubuntu2004*" : "${BUILDTOOLS_URL}",
+        "perf-ubuntu2004*" : "${BUILDTOOLS_URL}"
     }
 }
