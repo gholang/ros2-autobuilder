@@ -1,6 +1,6 @@
 [submodule "yocto-autobuilder2"]
-	path = yocto-autobuilder2
+	path = buildbot/yoctoabb
 	url = git@github.com:gholang/yocto-autobuilder2
 [submodule "yocto-autobuilder-helper"]
-	path = yocto-autobuilder-helper
+	path = buildbot/yocto-autobuilder-helper
 	url = git@github.com:gholang/yocto-autobuilder-helper
