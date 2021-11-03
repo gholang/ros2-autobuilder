@@ -28,7 +28,7 @@ services:
     image: yezune/buildbot-worker:master
   
     volumes:
-      - ./buildbot/yocto-autobuilder-helper:/buildbot/yocto-autobuilder-helper
+      - ./srv:/srv
   
     environment:
       - BUILDMASTER=buildbot
