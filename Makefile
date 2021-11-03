@@ -1,7 +1,10 @@
-.PHONY: start stop worker-start worker-stop log docker master-img worker-img clean
+.PHONY: start stop start worker-start log docker master worker clean
 	
 start:
 	docker-compose up -d
+
+stop:
+	docker-compose down
 
 worker-start:
 	docker run --rm -it \
@@ -13,19 +16,14 @@ worker-start:
 
 log:
 	docker-compose logs -f 
-stop:
-	docker-compose down
 	
 docker: master worker
 
-initial:
-	mkdir tmp
-	
-master-img: initial
-	docker build -t yezune/buildbot-master tmp -f Dockerfile.master
+master:
+	docker build -t yezune/buildbot-master master -f Dockerfile.master
 
-worker-img: initial
-	docker build -t yezune/buildbot-worker tmp -f Dockerfile.worker
+worker:
+	docker build -t yezune/buildbot-worker worker -f Dockerfile.worker
 
 clean:
 	docker image rm -f yezune/buildbot-master
