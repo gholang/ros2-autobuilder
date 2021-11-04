@@ -8,3 +8,4 @@ git
 *.cfg.sample
 buildbot.tac
 gitpoller-work
+srv
