@@ -20,9 +20,9 @@ RUN apt-get update && \
         gawk \
         wget \
         diffstat \
-	rsync \
-	nfs-common \
-	cifs-utils \
+        rsync \
+        nfs-common \
+        cifs-utils \
         unzip \
         sysstat \
         texinfo \
@@ -51,6 +51,11 @@ RUN apt-get update && \
         tightvncserver \
         lz4 \
         zstd && \
-    	rm -rf /var/lib/apt/lists/* 
+    rm -rf /var/lib/apt/lists/* && \
+    DEBIAN_FRONTEND=noninteractive /usr/sbin/locale-gen en_US.UTF-8 
+
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
 
 USER buildbot

@@ -1,6 +1,12 @@
 {
     "BASE_HOMEDIR" : "/buildbot",
     "BASE_SHAREDDIR" : "/srv/autobuilder/autobuilder.yoctoproject.org",
-    "BASE_PUBLISHDIR" : "/srv/autobuilder/downloads.yoctoproject.org"
+    "BASE_PUBLISHDIR" : "/srv/autobuilder/downloads.yoctoproject.org",
+    "defaults" : {
+        "extravars" : [
+            "BB_HASHSERVE = '192.168.50.239:8686'",
+            "RUNQEMU_TMPFS_DIR = '/buildbot/tmp'"
+        ]
+    }
 }
 
