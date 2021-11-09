@@ -10,6 +10,7 @@ services:
     environment:
       - ABHELPER_JSON=config.json /buildbot/config-local.json
       - BUILDBOT_CONFIG_DIR=config
+      - BUILDBOT_BASEDIR=/buildbot
       #- BUILDBOT_CONFIG_URL=https://github.com/buildbot/buildbot-docker-example-config/archive/master.tar.gz
       - BUILDBOT_WORKER_PORT=9989
       - BUILDBOT_WEB_URL=http://localhost:8010/
@@ -111,6 +112,3 @@ services:
     links:
      - buildbot
 
-
-
-             

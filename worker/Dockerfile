@@ -1,18 +1,5 @@
-FROM buildbot/buildbot-worker:master
+FROM buildbot/buildbot-worker:v2.8.4
 
-# installed packages from buildbot-worker
-#RUN RUN apt-get update && \
-#    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-#    build-essential \
-#    git \
-#    subversion \
-#    python3-dev \
-#    libffi-dev \
-#    libssl-dev \
-#    python3-setuptools \
-#    python3-pip \
-#    dumb-init \
-#    curl && 
 USER root
 
 RUN apt-get update && \
@@ -49,7 +36,6 @@ RUN apt-get update && \
         iproute2 \
         fluxbox \
         tightvncserver \
-        lz4 \
         zstd && \
     rm -rf /var/lib/apt/lists/* && \
     DEBIAN_FRONTEND=noninteractive /usr/sbin/locale-gen en_US.UTF-8 
