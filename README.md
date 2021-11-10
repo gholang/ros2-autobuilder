@@ -45,7 +45,7 @@ newgrp docker # refresh group members
 
 ```sh
 # pull ros2-autobuilder
-git clone --recurse-submodules http://mod.lge.com/hub/yezune.choi/ros2-autobuilder
+git clone --recurse-submodules http://github.com/gholang/ros2-autobuilder
 #
 cd ros2-autobuilder
 # initialize directories
