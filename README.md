@@ -1,6 +1,6 @@
 # ROS2 autobuilder
 
-ROS2 autobuilder is a CI(Continous Integration) system for ROS2onYocto project.
+ROS2 autobuilder is a CI(Continous Integration) system for Yocto project.
 
 All systems are on Docker containers(build master,worker and janitor)
 
